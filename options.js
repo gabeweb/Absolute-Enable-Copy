@@ -13,7 +13,7 @@
 		}
 	  });
 	}
-  
+
 	function getData(u, url, mode) {
 	  var hostname = url;
 	  var d = document.createElement('div');
@@ -41,7 +41,7 @@
 		empty(u);
 	  });
 	}
-  
+
 	function empty(u) {
 	  var empty = document.querySelector('.list-empty');
 	  if (empty !== null && u.querySelectorAll('.table-row')[0] !== null) {
@@ -51,33 +51,8 @@
 		empty.style.display = 'block';
 	  }
 	}
-  
+
 	window.onload = function() {
 	  callback();
-	  fetch('https://amureborn.com/feed/')
-		.then(response => response.text())
-		.then(str => {
-		  let parser = new DOMParser();
-		  let xmlDoc = parser.parseFromString(str, 'text/xml');
-  
-		  const items = xmlDoc.querySelectorAll('item');
-		  const latestItems = Array.from(items).slice(0, 3);
-		  let html = '';
-		  latestItems.forEach(el => {
-			const title = el.querySelector('title').textContent;
-			const link = el.querySelector('link').textContent;
-  
-			html += `
-			  <div class="post">
-				<h2><a href="${link}" target="_blank">${title}</a></h2>
-			  </div>
-			`;
-		  });
-  
-		  document.getElementById('rss-feed').innerHTML = html;
-		})
-		.catch(error => {
-		  console.error('Error fetching RSS feed:', error);
-		});
 	};
   })();
